@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #EEF9BF;
+}
+
+h1 {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 56px;
+    color: #75B79E;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0px 47px;
+    text-align: center;
+}
+
+.area-jogo {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
