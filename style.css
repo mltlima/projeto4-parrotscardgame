@@ -18,7 +18,7 @@ h1 {
     text-align: center;
 }
 
-.area-jogo {
+main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
