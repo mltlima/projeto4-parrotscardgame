@@ -24,3 +24,21 @@ main {
     flex-wrap: wrap;
 }
 
+.card {
+    height: 146px;
+    width: 117px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #A7E9AF;
+    margin: 0px 20px 34px;
+}
+
+img {
+    height: 100px;
+    width: 100px;
+}
+
+.hide {
+    display: none;
+}
