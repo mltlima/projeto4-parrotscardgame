@@ -4,6 +4,9 @@
 
 body {
     background-color: #EEF9BF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
@@ -22,6 +25,7 @@ main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    width: 70%;
 }
 
 .card {
@@ -32,6 +36,8 @@ main {
     align-items: center;
     background-color: #A7E9AF;
     margin: 0px 20px 34px;
+    border-radius: 5px;
+    border: 2px solid #99cea8;
 }
 
 img {

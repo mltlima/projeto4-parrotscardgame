@@ -7,13 +7,24 @@ const deck = [
     "assets/revertitparrot.gif",
     "assets/tripletsparrot.gif",
     "assets/unicornparrot.gif"
-]
+];
+const shuffledDeck = [];
+
 
 function shuffle() {
-    deck.sort(comparador);
+
+    deck.sort(comparator);
+
+    for (let i = 0; i < numCards/2; i++) {
+        shuffledDeck.push(deck[i]);
+        shuffledDeck.push(deck[i]);
+    }
+
+    shuffledDeck.sort(comparator);
+    
 }
 
-function comparador() { 
+function comparator() { 
 	return Math.random() - 0.5; 
 }
 
@@ -23,16 +34,26 @@ function generateDeck() {
     shuffle()
 
     for (let i = 0; i < numCards ; i++) {
-        main.innerHTML += `<div class="card">
+        main.innerHTML += `<div class="card" onclick="turnCard(this)">
                                 <div class="front-card">
                                     <img src="assets/front.png">
                                 </div>
                                 <div class="back-card hide">
-                                <img src="${deck[i]}">
+                                <img src="${shuffledDeck[i]}">
                                 </div>
                             </div>
                         `
     }
+}
+
+function turnCard(card) {
+
+    let cardBack = card.querySelector(".back-card");
+    let cardFront = card.querySelector(".front-card");
+
+    cardFront.classList.add("hide")
+    cardBack.classList.remove("hide");
+
 }
 
 function startGame() {
