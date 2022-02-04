@@ -54,27 +54,31 @@ function generateDeck() {
 
 function turnCard(card) {
 
-    if (gameLocked) return;
-
     let cardBack = card.querySelector(".back-card");
     let cardFront = card.querySelector(".front-card");
         card.classList.toggle("flip");
-        setTimeout(cardFront.classList.toggle("hide"),1000);
-        setTimeout(cardBack.classList.toggle("hide"),1000);
+        cardFront.classList.toggle("hide");
+        cardBack.classList.toggle("hide");
 }
 
 function playCard(card) {
     
     if (isItTheSecondCard) { 
+        //Keep waiting for user to click in a card
+        //different than the first clicked
+        if (card.isEqualNode(card1)) return;
+        
         turnCard(card);
         card2 = card;
         isItTheSecondCard = false;
         cardsTurned;
 
         if (!card1.isEqualNode(card2)) {
+            gameLocked = true;
             setTimeout(() =>{  
                 turnCard(card1);
                 turnCard(card2);
+                gameLocked = false;
             }, 1000);  
         }else {
             card1.removeAttribute("onclick");
@@ -82,7 +86,7 @@ function playCard(card) {
             cardsTurnedRight ++;
             checkEndGame();
         }
-    } else { 
+    } else if(!gameLocked){ 
             turnCard(card);
             card1 = card;
             isItTheSecondCard = true;
