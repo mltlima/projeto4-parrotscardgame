@@ -2,6 +2,9 @@ let numCards = 0;
 var isItTheSecondCard = false;
 let card1 = null;
 let card2 = null;
+let gameLocked = false;
+let cardsTurnedRight = 0;
+let cardsTurned = 0;
 const deck = [
     "assets/bobrossparrot.gif",
     "assets/explodyparrot.gif",
@@ -51,6 +54,8 @@ function generateDeck() {
 
 function turnCard(card) {
 
+    if (gameLocked) return;
+
     let cardBack = card.querySelector(".back-card");
     let cardFront = card.querySelector(".front-card");
         card.classList.toggle("flip");
@@ -64,6 +69,8 @@ function playCard(card) {
         turnCard(card);
         card2 = card;
         isItTheSecondCard = false;
+        cardsTurned;
+
         if (!card1.isEqualNode(card2)) {
             setTimeout(() =>{  
                 turnCard(card1);
@@ -72,13 +79,22 @@ function playCard(card) {
         }else {
             card1.removeAttribute("onclick");
             card2.removeAttribute("onclick");
+            cardsTurnedRight ++;
+            checkEndGame();
         }
     } else { 
             turnCard(card);
             card1 = card;
             isItTheSecondCard = true;
+            cardsTurned ++;
     }
 
+}
+
+function checkEndGame() {
+    if (cardsTurnedRight === numCards/2) {
+        alert(`Você ganhou em ${cardsTurned} jogadas`);
+    }
 }
 
 function startGame() {
