@@ -38,7 +38,17 @@ main {
     margin: 0px 20px 34px;
     border-radius: 5px;
     border: 2px solid #99cea8;
+    transition: transform .5s;
+    transform-style: preserve-3d;
 }
+/*
+.front-card {
+    transform: rotateY(180deg);
+}
+*/
+.flip {
+    transform: rotateY(180deg);
+  }
 
 img {
     height: 100px;
