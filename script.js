@@ -5,6 +5,10 @@ let card2 = null;
 let gameLocked = false;
 let cardsTurnedRight = 0;
 let cardsTurned = 0;
+const stopwatch = document.querySelector(".stopwatch");
+let interval = null;
+let seconds = 0;
+let minutes = 0;
 const deck = [
     "assets/bobrossparrot.gif",
     "assets/explodyparrot.gif",
@@ -15,6 +19,26 @@ const deck = [
     "assets/unicornparrot.gif"
 ];
 const shuffledDeck = [];
+
+
+function startClock() {
+    
+    interval = setInterval(() => {
+        seconds++;
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        if (seconds == 60) {
+            seconds = "00";
+            minutes++;
+        }
+        if (minutes < 10) {
+            stopwatch.innerHTML = `0${minutes}:${seconds}`
+        } else {
+            stopwatch.innerHTML = `${minutes}:${seconds}`
+        }
+    },1000) 
+} startClock();
 
 
 function shuffle() {
@@ -97,7 +121,8 @@ function playCard(card) {
 
 function checkEndGame() {
     if (cardsTurnedRight === numCards/2) {
-        alert(`Você ganhou em ${cardsTurned} jogadas`);
+        clearInterval(interval);
+        alert(`Você ganhou em ${cardsTurned} jogadas e com o tempo de: ${minutes}:${seconds} `);
     }
 }
 
