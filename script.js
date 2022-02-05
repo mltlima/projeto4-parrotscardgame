@@ -20,7 +20,11 @@ const deck = [
 ];
 const shuffledDeck = [];
 
-
+/**
+ * Start the stopwatch clock
+ * once the seconds get to 60 the minutes are incremented and the 
+ * seconds get back to 0
+ */
 function startClock() {   
     interval = setInterval(() => {
         seconds++;
@@ -39,7 +43,10 @@ function startClock() {
     },1000) 
 } startClock();
 
-
+/**
+ * Shuffle the initial deck and then get the number of cards inputted by
+ * the user
+ */
 function shuffle() {
 
     deck.sort(comparator);
@@ -53,21 +60,28 @@ function shuffle() {
     
 }
 
+/**
+ * Function to generate a random number
+ * @returns random number
+ */
 function comparator() { 
 	return Math.random() - 0.5; 
 }
 
+/**
+ * Creates a random deck and then uses DOM to create the cards in html
+ */
 function generateDeck() {
 
     const main = document.querySelector("main");
     shuffle()
 
     for (let i = 0; i < numCards ; i++) {
-        main.innerHTML += `<div class="card" onclick="playCard(this)">
-                                <div class="front-card">
+        main.innerHTML += `<div class="card" onclick="playCard(this)" data-identifier="card">
+                                <div class="front-card" data-identifier="front-face">
                                     <img src="assets/front.png">
                                 </div>
-                                <div class="back-card hide">
+                                <div class="back-card hide" data-identifier="back-face">
                                 <img class="toCompare"src="${shuffledDeck[i]}">
                                 </div>
                             </div>
@@ -75,6 +89,11 @@ function generateDeck() {
     }
 }
 
+
+/**
+ * Turns a card clicked by the user
+ * @param {*} card card to be turned
+ */
 function turnCard(card) {
 
     let cardBack = card.querySelector(".back-card");
@@ -84,6 +103,12 @@ function turnCard(card) {
         cardBack.classList.toggle("hide");
 }
 
+/**
+ * Validate card clicked by the user, checks if the game is locked (User clicked on the second card)
+ * if not turns the card unlocks the possibility to turn the second card to be compared. If the user
+ * clicked on the same card input is not accepted, otherwise, the second card is turned and then compared
+ * @param {*} card card clicked by the user
+ */
 function playCard(card) {
     
     if (isItTheSecondCard) { 
@@ -98,18 +123,18 @@ function playCard(card) {
 
         if (!card1.isEqualNode(card2)) {
             gameLocked = true;
-            setTimeout(() =>{  
+            setTimeout(() =>{  // 1 second to turn the cards back if they are not equal
                 turnCard(card1);
                 turnCard(card2);
                 gameLocked = false;
             }, 1000);  
-        }else {
+        }else { // cards are equal, so user cannot click then anymore
             card1.removeAttribute("onclick");
             card2.removeAttribute("onclick");
             cardsTurnedRight ++;
             checkEndGame();
         }
-    } else if(!gameLocked){ 
+    } else if(!gameLocked){ //Fist card to be turned
             turnCard(card);
             card1 = card;
             isItTheSecondCard = true;
@@ -118,6 +143,9 @@ function playCard(card) {
 
 }
 
+/**
+ * Verifies if the all the cards are turned
+ */
 function checkEndGame() {
     if (cardsTurnedRight === numCards/2) {
         clearInterval(interval);
@@ -130,6 +158,9 @@ function checkEndGame() {
     }
 }
 
+/**
+ * Function to start the memory game
+ */
 function startGame() {
     
     //Validates number inputted by user
