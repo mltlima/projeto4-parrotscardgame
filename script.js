@@ -21,8 +21,7 @@ const deck = [
 const shuffledDeck = [];
 
 
-function startClock() {
-    
+function startClock() {   
     interval = setInterval(() => {
         seconds++;
         if (seconds < 10) {
@@ -123,6 +122,11 @@ function checkEndGame() {
     if (cardsTurnedRight === numCards/2) {
         clearInterval(interval);
         alert(`Você ganhou em ${cardsTurned} jogadas e com o tempo de: ${minutes}:${seconds} `);
+
+        let newGame = prompt("Gostaria de reiniciar a partida?").toUpperCase();
+        if (newGame === "SIM") {
+            window.location.reload()
+        }
     }
 }
 
